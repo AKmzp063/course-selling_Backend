@@ -64,18 +64,17 @@ export const login = catchAsyncError(async (req, res, next) => {
 });
 
 export const logout = catchAsyncError(async (req, res, next) => {
-    res
-    .status(200)
-    .cookie("token", null,{
-        expires: new Date(Date.now()),
+    res.clearCookie("token", {
         httpOnly: true,
-        sameSite: "none",
-        secure: true,
-    }).json({
+        sameSite: "lax",
+        secure: process.env.NODE_ENV === "production",
+        path: '/',
+    });
+    
+    res.status(200).json({
         success: true,
         message: "Logged Out Successfully",
     });
-
 });
 
 export const getMyProfile = catchAsyncError(async (req, res, next) => {
@@ -100,12 +99,14 @@ export const deleteMyProfile = catchAsyncError(async (req,res,next) => {
 
     await user.deleteOne();
 
-    res
-    .status(200)
-    .cookie("token", null, {
-        expires: new Date(Date.now()),
-    })
-    .json({
+    res.clearCookie("token", {
+        httpOnly: true,
+        sameSite: "lax",
+        secure: process.env.NODE_ENV === "production",
+        path: '/',
+    });
+    
+    res.status(200).json({
         success: true,
         message: "User Deleted Successfully",
     });
