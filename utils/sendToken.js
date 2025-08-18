@@ -6,7 +6,7 @@ export const sendToken = (res, user, message, statusCode=200)=> {
         expires: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
         httpOnly: true,
         sameSite: "none",
-        secure: process.env.NODE_ENV === "production",
+        secure: false,
         path: '/',
     };
 
