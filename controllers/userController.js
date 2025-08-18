@@ -66,7 +66,7 @@ export const login = catchAsyncError(async (req, res, next) => {
 export const logout = catchAsyncError(async (req, res, next) => {
     res.clearCookie("token", {
         httpOnly: true,
-        sameSite: "lax",
+        sameSite: "none",
         secure: process.env.NODE_ENV === "production",
         path: '/',
     });
@@ -101,7 +101,7 @@ export const deleteMyProfile = catchAsyncError(async (req,res,next) => {
 
     res.clearCookie("token", {
         httpOnly: true,
-        sameSite: "lax",
+        sameSite: "none",
         secure: process.env.NODE_ENV === "production",
         path: '/',
     });
